@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+:root {
+    // Variables
+    --base-white: hsl(0, 0%, 95%);
+    --base-black: hsl(0, 0%, 10%);
+}
+
+html {
+    font-size: 62.5%; // 1rem = 10px
+    box-sizing: border-box;
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+body {
+    font-size: 1.6rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: var(--base-white);
+}
+
+#content {
+    min-height: 100vh;
+    // Grid
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas: 
+        "header header"
+        "main main"
+        "footer footer";
+}
+
+header, #sidenav-content, main, footer {
+    padding: 1.2rem;
+}
+
+header {
+    text-align: center;
+    // Grid
+    grid-area: header;
+    display: grid;
+    place-items: center;
+}
+
+#sidenav {
+    // Grid
+    grid-area: sidenav;
+
+    z-index: 1;
+    overflow-x: hidden;
+    // Position
+    position: absolute;
+    height: 100%;
+    width: 0;
+    top: 0;
+    left: 0;
+    // Transition
+    transition: all 500ms ease;
+
+    a {
+        display: block;
+    }
+
+    #sidenav-content {
+        
+    }
+}
+
+main {
+    // Grid
+    grid-area: main;
+}
+
+footer {
+    text-align: center;
+    // Grid
+    grid-area: footer;
+    display: grid;
+    place-items: center;
+}
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    #content {
+        grid-template-areas: 
+            "header header"
+            "sidenav main"
+            "footer footer";
+        
+        #sidenav {
+            position: static;
+            width: auto;
+        }
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {}
