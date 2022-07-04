@@ -26,9 +26,50 @@ function component() {
     );
 
     // Dropdown Menu
+    const props = {content: []};
+    for (let i = 0; i < 3; i++) {
+        const numDropdownItems = 1 + (Math.random() * 4);
+        let dropdownContent = [];
+        for (let j = 0; j < numDropdownItems; j++) {
+            dropdownContent.push({
+                name: `Sub Nav ${i + 1}-${j + 1}`,
+                href: ''
+            });
+        }
+
+        props.content.push({
+            dropdownContent,
+            name: `Nav ${i + 1}`,
+            href: null,
+        });
+    }
+    /*
+    props = {
+        content: [
+            {
+                name: 'Nav 1',
+                href: null,
+                dropdownContent: [
+                    {
+                        name: 'Sub Nav 1-1',
+                        href: ''
+                    },
+                    {
+                        name: 'Sub Nav 1-2',
+                        href: ''
+                    },
+                    {
+                        name: 'Sub Nav 1-3',
+                        href: ''
+                    }
+                ]
+            }
+        ]
+    };
+    */
     mainElement.append(
         createElement('h2', {}, 'Dropdown Menu:'),
-        (new DropdownMenu()).render()
+        (new DropdownMenu(props)).render()
     );
 
     // Mobile Menu

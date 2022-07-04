@@ -1,0 +1,54 @@
+.dropdown-menu {
+    // Grid
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    justify-items: stretch;
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .dropdown-container {
+        &.open {
+            .dropdown-top {
+                background-color: gray;
+            }
+
+            .dropdown {
+                ul {
+                    transform: translateY(0);
+                }
+            }
+        }
+
+        .dropdown-top, .dropdown li a {
+            display: block;
+            padding: 0.5em 1em;
+            cursor: pointer;
+    
+            &:hover {
+                background-color: gray;
+            }
+        }
+
+        .dropdown-top {
+        }
+    
+        .dropdown {
+            overflow: hidden;
+
+            ul {
+                transform: translateY(-100%);
+                transition: transform 500ms ease;
+
+                li {
+                    a {
+                        
+                    }
+                }
+            }
+        }
+    }
+}
