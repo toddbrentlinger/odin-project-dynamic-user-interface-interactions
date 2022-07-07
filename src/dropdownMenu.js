@@ -23,7 +23,7 @@ export default class DropdownMenu extends BaseComponent {
     }
 
     render() {
-        this.initializeRender(createElement('div', {'class': 'dropdown-menu'}));
+        this.initializeRender(createElement('nav', {'class': 'dropdown-menu'}));
 
         /*
         props = {
