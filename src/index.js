@@ -26,7 +26,7 @@ function component() {
     );
 
     // Dropdown Menu
-    const props = {content: []};
+    let props = {content: []};
     for (let i = 0; i < 3; i++) {
         const numDropdownItems = 1 + (Math.random() * 4);
         let dropdownContent = [];
@@ -78,10 +78,29 @@ function component() {
         (new MobileMenu()).render()
     );
 
+    const images = [
+        ['GoldenEye 007', 'co25w8'],
+        ['Splinter Cell: Chaos Theory', 'co2ysx'],
+        ['Jak and Daxter: The Precursor Legacy', 'co1w7q'],
+        ['The Last of Us', 'co1r7f'],
+        ['Uncharted 2: Among Thieves', 'co1tnb'],
+        ['Metal Gear Solid 2: Sons of Liberty', 'co29pl'],
+        ['Red Dead Redemption 2', 'co1q1f'],
+    ].map(imageSource => {
+        return {
+            src: `https://images.igdb.com/igdb/image/upload/t_cover_big/${imageSource[1]}.png`,
+            width: 264,
+            height: 352,
+            alt: `${imageSource[0]} video game cover`
+        };
+    });
+
+    props = {images};
+
     // Image Slider
     mainElement.append(
         createElement('h2', {}, 'Image Slider:'),
-        (new ImageSlider()).render()
+        (new ImageSlider(props)).render()
     );
 
     // Footer
