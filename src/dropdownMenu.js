@@ -2,24 +2,80 @@ import BaseComponent from './baseComponent.js';
 import { createElement } from './utilities.js';
 import './dropdownMenu.scss';
 
+class Dropdown extends BaseComponent {
+    constructor(props) {
+        super(props);
+        this._dropdownElement = null;
+        this._dropdownListElement = null;
+    }
+
+    close() {
+
+    }
+
+    render() {
+        this.initializeRender(createElement('span', {'class': 'dropdown-container'}));
+
+        // Top Level
+        const dropdownTopElement = createElement('span', {'class': 'dropdown-top'}, itemObj.name);
+        this._element.appendChild(dropdownTopElement);
+
+        // Dropdown
+        if (!itemObj.hasOwnProperty('dropdownContent') || !Array.isArray(itemObj.dropdownContent)) {
+            return this._element;
+        }
+
+        const dropdownElement = this._element.appendChild(createElement('div', {'class': 'dropdown'}));
+        const dropdownListElement = dropdownElement.appendChild(document.createElement('ul'));
+
+        this._element.addEventListener('click', e => {
+            this._handleDropdownTopClick(e, dropdownElement, dropdownListElement);
+        }, false);
+
+        for (let j = 0; j < itemObj.dropdownContent.length; j++) {
+            const dropdownObj = itemObj.dropdownContent[j];
+
+            if (!dropdownObj.hasOwnProperty('name')) continue;
+
+            dropdownListElement.appendChild(
+                createElement('li', {}, 
+                    createElement('a', {href: dropdownObj.href||''}, dropdownObj.name)
+                )
+            );
+        }
+
+        return this._element;
+    }
+}
+
 export default class DropdownMenu extends BaseComponent {
     constructor(props) {
         super(props);
         this._dropdownElements = [];
     }
 
-    _closeAllDropdowns(...dropdownElementsToIgnore) {
+    _closeAllDropdowns(...dropdownContentElementsToIgnore) {
         for (let i = 0; i < this._dropdownElements.length; i++) {
-            const dropdownElement = this._dropdownElements[i];
-            if (dropdownElementsToIgnore.includes(dropdownElement)) continue;
-            dropdownElement.classList.remove('open');
+            const dropdownContentElement = this._dropdownElements[i];
+
+            if (dropdownContentElementsToIgnore.includes(dropdownContentElement)) continue;
+
+            dropdownContentElement.style.height = 0;
         }
     }
 
-    _handleDropdownTopClick(e, dropdownElement) {
+    _handleDropdownTopClick(e, dropdownContainer, dropdownContentElement, dropdownListElement) {
         e.preventDefault();
-        this._closeAllDropdowns(dropdownElement);
-        dropdownElement.classList.toggle('open');
+
+        this._closeAllDropdowns(dropdownContentElement);
+
+        if (dropdownContentElement.offsetHeight > 0) {
+            dropdownContentElement.style.height = 0;
+            //dropdownContainer.classList.remove('open');
+        } else {
+            dropdownContentElement.style.height = `${dropdownListElement.offsetHeight}px`;
+            //dropdownContainer.classList.add('open');
+        }
     }
 
     render() {
@@ -57,8 +113,7 @@ export default class DropdownMenu extends BaseComponent {
                 if (!itemObj.hasOwnProperty('name')) continue;
 
                 const dropdownContainer = this._element.appendChild(createElement('span', {'class': 'dropdown-container'}));
-                this._dropdownElements.push(dropdownContainer);
-
+                
                 // Top Level
                 const dropdownTopElement = createElement('span', {'class': 'dropdown-top'}, itemObj.name);
                 dropdownContainer.appendChild(dropdownTopElement);
@@ -69,10 +124,11 @@ export default class DropdownMenu extends BaseComponent {
                 }
 
                 const dropdownElement = dropdownContainer.appendChild(createElement('div', {'class': 'dropdown'}));
-                const dropdownListElement = dropdownElement.appendChild(document.createElement('ul'));
+                const dropdownContentElement = dropdownElement.appendChild(createElement('div', {'class': 'dropdown-content'}));
+                const dropdownListElement = dropdownContentElement.appendChild(document.createElement('ul'));
 
                 dropdownContainer.addEventListener('click', e => {
-                    this._handleDropdownTopClick(e, dropdownContainer);
+                    this._handleDropdownTopClick(e, dropdownContainer, dropdownContentElement, dropdownListElement);
                 }, false);
 
                 for (let j = 0; j < itemObj.dropdownContent.length; j++) {
@@ -86,6 +142,8 @@ export default class DropdownMenu extends BaseComponent {
                         )
                     );
                 }
+
+                this._dropdownElements.push(dropdownContentElement);
             }
         }
 

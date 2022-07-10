@@ -19,8 +19,8 @@
 
             .dropdown {
                 ul {
-                    transform: translateY(0);
-                    transform: scaleY(1);
+                    // transform: translateY(0);
+                    // transform: scaleY(1);
                 }
             }
         }
@@ -44,21 +44,25 @@
             position: relative;
             z-index: 1;
 
-            ul {
+            .dropdown-content {
+                overflow: hidden;
                 position: absolute;
+                top: 0;
+                left: 0;
                 width: 100%;
-                background-color: var(--base-white);
-                border: 2px solid gray;
-                border-top: none;
-                // Transform
-                transform-origin: top;
-                transform: translateY(-100%);
-                transform: scaleY(0);
-                transition: transform 500ms ease;
+                // Transition
+                height: 0;
+                transition: height 500ms ease;
 
-                li {
-                    a {
-                        
+                ul {
+                    background-color: var(--base-white);
+                    border: 2px solid gray;
+                    border-top: none;
+    
+                    li {
+                        a {
+                            
+                        }
                     }
                 }
             }
