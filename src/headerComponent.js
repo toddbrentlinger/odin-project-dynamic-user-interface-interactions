@@ -1,5 +1,5 @@
-import BaseComponent from './baseComponent.js';
-import { createElement } from './utilities.js';
+import BaseComponent from './baseComponent';
+import { createElement } from './utilities';
 
 export default class HeaderComponent extends BaseComponent {
     render() {

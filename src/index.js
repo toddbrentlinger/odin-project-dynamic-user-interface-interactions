@@ -1,17 +1,17 @@
-import DropdownMenu from './dropdownMenu.js';
-import MobileMenu from './mobileMenu.js';
-import ImageSlider from './imageSlider.js';
-import HeaderComponent from './headerComponent.js';
-import SideNavComponent from './sideNavComponent.js';
-import FooterComponent from './footerComponent.js';
+import DropdownMenu from './dropdownMenu';
+import MobileMenu from './mobileMenu';
+import ImageSlider from './imageSlider';
+import HeaderComponent from './headerComponent';
+import SideNavComponent from './sideNavComponent';
+import FooterComponent from './footerComponent';
 
-import { createElement } from './utilities.js';
+import { createElement } from './utilities';
 
 import './meyerReset.scss';
 import './styles.scss';
 
 function component() {
-    const element = createElement('div', {id: 'content'});
+    const element = createElement('div', { id: 'content' });
 
     element.appendChild(
         (new HeaderComponent()).render()
@@ -26,14 +26,14 @@ function component() {
     );
 
     // Dropdown Menu
-    let props = {content: []};
+    let props = { content: [] };
     for (let i = 0; i < 3; i++) {
         const numDropdownItems = 1 + (Math.random() * 4);
-        let dropdownContent = [];
+        const dropdownContent = [];
         for (let j = 0; j < numDropdownItems; j++) {
             dropdownContent.push({
                 name: `Sub Nav ${i + 1}-${j + 1}`,
-                href: ''
+                href: '',
             });
         }
 
@@ -86,16 +86,14 @@ function component() {
         ['Uncharted 2: Among Thieves', 'co1tnb'],
         ['Metal Gear Solid 2: Sons of Liberty', 'co29pl'],
         ['Red Dead Redemption 2', 'co1q1f'],
-    ].map(imageSource => {
-        return {
-            src: `https://images.igdb.com/igdb/image/upload/t_cover_big/${imageSource[1]}.png`,
-            width: 264,
-            height: 352,
-            alt: `${imageSource[0]} video game cover`
-        };
-    });
+    ].map((imageSource) => ({
+        src: `https://images.igdb.com/igdb/image/upload/t_cover_big/${imageSource[1]}.png`,
+        width: 264,
+        height: 352,
+        alt: `${imageSource[0]} video game cover`,
+    }));
 
-    props = {images};
+    props = { images };
 
     // Image Slider
     mainElement.append(

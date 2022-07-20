@@ -1,5 +1,4 @@
-'use strict';
-import { createElement } from './utilities.js';
+import { createElement } from './utilities';
 
 export default class BaseComponent {
     constructor(props) {

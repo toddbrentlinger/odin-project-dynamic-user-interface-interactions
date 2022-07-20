@@ -1,8 +1,7 @@
 /**
- * 
  * @param {String} type - Element type
- * @param {Object} props - Element attribute names and their corresponding value 
- * @param  {...Node} children - Variable number of child nodes 
+ * @param {Object} props - Element attribute names and their corresponding value
+ * @param  {...Node} children - Variable number of child nodes
  */
  export function createElement(type, props = {}, ...children) {
     const element = document.createElement(type);
@@ -13,7 +12,7 @@
     }
 
     // Children Nodes
-    children.forEach(child => element.append(child));
+    children.forEach((child) => element.append(child));
 
     return element;
 }
